@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de costo de lote</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Calculadora de costo de lote</h1>
+    <p class="subtitle">ABM de Materias Primas y Productos + Cálculo de costos</p>
+    <div class="actions header-actions">
+      <button type="button" class="btn" id="seed-demo">Cargar datos de ejemplo</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section aria-labelledby="materias-title" class="card">
+      <h2 id="materias-title">Materias primas</h2>
+      <form id="materia-form" class="form-grid" autocomplete="off">
+        <input type="hidden" id="materiaEditIndex" />
+        <div class="field">
+          <label for="materia-id">ID</label>
+          <input id="materia-id" name="id" type="text" required />
+        </div>
+        <div class="field">
+          <label for="materia-nombre">Nombre</label>
+          <input id="materia-nombre" name="nombre" type="text" required />
+        </div>
+        <div class="field">
+          <label for="materia-costo">Costo unitario</label>
+          <input id="materia-costo" name="costoUnitario" type="number" min="0" step="0.01" required />
+        </div>
+        <div class="field">
+          <label for="materia-unidad">Unidad</label>
+          <input id="materia-unidad" name="unidad" type="text" placeholder="u, kg, m, etc." />
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary" id="materia-guardar">Guardar materia</button>
+          <button type="reset" class="btn" id="materia-limpiar">Limpiar</button>
+        </div>
+      </form>
+
+      <div class="table-wrap">
+        <table class="table" aria-describedby="materias-title">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Costo</th>
+              <th>Unidad</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="materias-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="productos-title" class="card">
+      <h2 id="productos-title">Productos terminados</h2>
+      <form id="producto-form" class="form-grid" autocomplete="off">
+        <input type="hidden" id="productoEditIndex" />
+        <div class="field">
+          <label for="producto-id">ID</label>
+          <input id="producto-id" name="id" type="text" required />
+        </div>
+        <div class="field">
+          <label for="producto-nombre">Nombre</label>
+          <input id="producto-nombre" name="nombre" type="text" required />
+        </div>
+        <div class="field">
+          <label for="producto-mano-obra">Mano de obra (por unidad)</label>
+          <input id="producto-mano-obra" name="manoObra" type="number" min="0" step="0.01" required />
+        </div>
+
+        <fieldset class="composition">
+          <legend>Composición (materias por unidad)</legend>
+          <div class="composition-add">
+            <label for="comp-materia">Materia</label>
+            <select id="comp-materia"></select>
+            <label for="comp-cantidad">Cantidad</label>
+            <input id="comp-cantidad" type="number" min="0" step="0.01" />
+            <button type="button" class="btn" id="comp-agregar">Agregar</button>
+          </div>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Materia</th>
+                  <th>Cantidad</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="comp-tbody"></tbody>
+            </table>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button type="submit" class="btn primary" id="producto-guardar">Guardar producto</button>
+          <button type="reset" class="btn" id="producto-limpiar">Limpiar</button>
+        </div>
+      </form>
+
+      <div class="table-wrap">
+        <table class="table" aria-describedby="productos-title">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Mano de obra</th>
+              <th>Componentes</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="productos-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="calculo-title" class="card">
+      <h2 id="calculo-title">Cálculo de costos</h2>
+      <form id="calculo-form" class="form-inline" autocomplete="off">
+        <label for="calculo-producto">Producto</label>
+        <select id="calculo-producto"></select>
+        <label for="calculo-cantidad">Cantidad a producir</label>
+        <input id="calculo-cantidad" type="number" min="0" step="1" value="1" />
+        <button type="submit" class="btn primary">Calcular costo</button>
+      </form>
+
+      <div id="resultado" class="resultado" aria-live="polite"></div>
+    </section>
+
+    <section aria-labelledby="mensajes-title" class="messages">
+      <h2 id="mensajes-title" class="visually-hidden">Mensajes</h2>
+      <div id="alert" role="status" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>HTML/CSS/JS — LocalStorage — Sin frameworks</small>
+  </footer>
+
+  <script src="script.js"></script>
+  <noscript>Esta aplicación requiere JavaScript.</noscript>
+  
+</body>
+</html>
